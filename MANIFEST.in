@@ -1,0 +1,11 @@
+include README.md LICENSE NOTICE CITATION.cff
+recursive-include docs *.md
+include docs/images/system-overview.png
+recursive-include data *.md
+recursive-include repro *.py *.yaml *.md
+recursive-include tests *.py
+recursive-include tools *.py
+include src/mhcr/serving/fp16.cpp
+global-exclude *.pyc *.pyo
+prune build
+prune dist

@@ -1,0 +1,72 @@
+dataset: cc12m
+n: 10948533
+d: 512
+k: 16384
+pq_m: 256
+top_k: 100
+pq_bits: 4
+pq_block: 32
+by_residual: false
+seed: 20261104
+partition_sample: 819200
+partition_iterations: 25
+pq_sample: 100000
+pq_iterations: 25
+build_chunk: 2000000
+published_training:
+  teacher_queries: 492728
+  student_queries: 32768
+  student_budget_range:
+  - 0.011057170855675369
+  - 0.0460431730899473
+teacher:
+  training_rows: 492728
+  hidden: 4096
+  epochs: 20
+  batch: 1024
+  lr: 0.001
+  weight_decay: 0.0001
+  seed: 20261104
+  rank_gamma: 20.0
+  tau: 0.07
+student:
+  hidden: 4096
+  dimension: 256
+  epochs: 4
+  batch: 128
+  training_rows: 32768
+  lr: 0.0001
+  weight_decay: 0.0001
+  seed: 20261104
+  budget_unit: fraction
+  budget_range: null
+  family: budget_tail
+  gate_variant: implicit32
+evaluation:
+  refinement_steps: 8
+  recall_tolerance: 0.002
+  metric: recall_at_100
+  targets:
+  - 0.9
+  - 0.95
+  - 0.98
+  - 0.99
+  reranks:
+  - 1000
+  - 5000
+  - 20000
+  - 40000
+configuration_status: complete_portable_recipe; derive_training_budget_from_new_index
+cost:
+  queries: 64
+  probes:
+  - 16
+  - 64
+  - 256
+  - 1024
+  - 4096
+  rerank: 5000
+  repeats: 3
+preparation:
+  query_chunk: 32
+  base_chunk: 32768

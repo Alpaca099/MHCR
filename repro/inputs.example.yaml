@@ -1,0 +1,4 @@
+base: ../data/gallery.fbin
+training: ../data/training.npz
+calibration: ../data/calibration.npz
+test: ../data/test.npz

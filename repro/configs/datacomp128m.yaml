@@ -1,0 +1,74 @@
+dataset: datacomp128m
+n: 128000000
+d: 768
+k: 65536
+top_k: 100
+pq_m: 384
+pq_bits: 4
+pq_block: 32
+by_residual: false
+base_format: fp16_shards
+routing_variant: datacomp
+published_training:
+  teacher_queries: 150000
+  student_queries: 32768
+  student_budget_range:
+  - 91.447314453125
+  - 342.92742919921875
+student:
+  hidden: 4096
+  dimension: 256
+  epochs: 6
+  batch: 128
+  training_rows: 32768
+  lr: 0.0002
+  weight_decay: 0.0001
+  seed: 20261029
+  budget_unit: ms
+  budget_range: null
+  family: budget_tail
+  gate_variant: datacomp12
+evaluation:
+  refinement_steps: 8
+  recall_tolerance: 0.002
+  metric: recall_at_100
+  targets:
+  - 0.9
+  - 0.95
+  - 0.98
+  - 0.99
+  reranks:
+  - 1000
+  - 5000
+  - 20000
+  - 40000
+configuration_status: complete_portable_recipe; derive_training_budget_from_new_index
+seed: 42
+partition_sample: 3276800
+partition_iterations: 20
+pq_sample: 100000
+pq_iterations: 25
+build_chunk: 32000000
+teacher:
+  training_rows: 150000
+  hidden: 8192
+  epochs: 20
+  batch: 1024
+  lr: 0.001
+  weight_decay: 0.0001
+  seed: 42
+  rank_gamma: 20.0
+  tau: 0.07
+cost:
+  queries: 64
+  probes:
+  - 16
+  - 64
+  - 256
+  - 1024
+  - 4096
+  rerank: 5000
+  repeats: 3
+preparation:
+  query_chunk: 32
+  base_chunk: 32768
